@@ -174,6 +174,375 @@
       document.getElementById('finalButton').classList.remove('hidden');
       hearts(28);
     }));
+ 
+<!-- YUZLERIMIZLE ASK YILANI -->
+<style>
+  .ask-yilan-kutu {
+    max-width:370px;
+    margin:16px auto;
+    padding:9px;
+    border:1px solid #eddce2;
+    background:#fff8fa;
+    border-radius:18px;
+  }
+  #askYilanCanvas {
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:12px;
+    touch-action:none;
+  }
+  .ask-yilan-yonler {
+    display:grid;
+    grid-template-columns:repeat(3,58px);
+    gap:7px;
+    justify-content:center;
+    margin:14px auto;
+  }
+  .ask-yilan-yonler button {
+    min-height:46px;
+    border:1px solid #e7cbd3;
+    background:#fff0f4;
+    color:#9a4e65;
+    border-radius:12px;
+    font-size:22px;
+    cursor:pointer;
+  }
+  #askYilanDurum {
+    color:#9a4e65;
+    min-height:2.5em;
+  }
+</style>
+
+<script>
+(function () {
+  const eskiOyun = document.getElementById('game');
+
+  const yeniIcerik = `
+    <div class="eyebrow">Sana özel mini oyun</div>
+    <h2>Aşk Yılanı 🐍❤️</h2>
+    <p>Yüzlerimizle 4 kalp toplayabilir misin?</p>
+    <p id="askYilanSkor">0 / 4 kalp toplandı</p>
+
+    <div class="ask-yilan-kutu">
+      <canvas id="askYilanCanvas"
+              width="336" height="336"></canvas>
+    </div>
+
+    <p id="askYilanDurum">Hazırsan başlayalım! 🤍</p>
+
+    <div class="ask-yilan-yonler">
+      <span></span>
+      <button type="button" data-ask-yon="up">↑</button>
+      <span></span>
+      <button type="button" data-ask-yon="left">←</button>
+      <button type="button" data-ask-yon="down">↓</button>
+      <button type="button" data-ask-yon="right">→</button>
+    </div>
+
+    <button class="btn" id="askYilanBaslat"
+            type="button">Oyunu başlat ♡</button>
+
+    <div id="askYilanOdul" class="hidden"
+         style="margin:18px 0;color:#a9546c;font-weight:bold">
+      4 ay geçti, ben hâlâ en çok sana doğru geliyorum. ❤️
+      <br>Kalbimin şifresi sensin!
+    </div>
+
+    <button class="btn hidden" id="askYilanDevam"
+            type="button" data-next="quiz">
+      Aşk testine geç 💌
+    </button>
+  `;
+
+  let bolum = eskiOyun;
+
+  if (!bolum) {
+    bolum = document.createElement('section');
+    bolum.id = 'game';
+    bolum.className = 'panel hidden';
+    document.getElementById('quiz').before(bolum);
+  }
+
+  bolum.innerHTML = yeniIcerik;
+
+  const fotoButonu =
+    document.querySelector('#photo [data-next]');
+
+  if (fotoButonu) {
+    fotoButonu.dataset.next = 'game';
+  }
+
+  const canvas = document.getElementById('askYilanCanvas');
+  const ctx = canvas.getContext('2d');
+
+  const N = 14;
+  const B = canvas.width / N;
+
+  const yuzler = ['yuz1.jpg', 'yuz2.jpg'].map(src => {
+    const img = new Image();
+    img.src = src;
+    img.onload = ciz;
+    return img;
+  });
+
+  const skorYaz = document.getElementById('askYilanSkor');
+  const durum = document.getElementById('askYilanDurum');
+  const baslat = document.getElementById('askYilanBaslat');
+  const devam = document.getElementById('askYilanDevam');
+  const odul = document.getElementById('askYilanOdul');
+
+  let yilan, yem, yon, gelecekYon, skor;
+  let zamanlayici = null;
+  let oynuyor = false;
+
+  function yemKoy() {
+    const bos = [];
+
+    for (let y = 0; y < N; y++) {
+      for (let x = 0; x < N; x++) {
+        if (!yilan.some(p => p.x === x && p.y === y)) {
+          bos.push({x, y});
+        }
+      }
+    }
+
+    yem = bos[Math.floor(Math.random() * bos.length)];
+  }
+
+  function sifirla() {
+    clearInterval(zamanlayici);
+    oynuyor = false;
+
+    yilan = [
+      {x:5, y:7},
+      {x:4, y:7},
+      {x:3, y:7}
+    ];
+
+    yon = {x:1, y:0};
+    gelecekYon = {x:1, y:0};
+    skor = 0;
+
+    skorYaz.textContent = '0 / 4 kalp toplandı';
+    durum.textContent = 'Hazırsan başlayalım! 🤍';
+
+    baslat.textContent = 'Oyunu başlat ♡';
+    baslat.classList.remove('hidden');
+
+    odul.classList.add('hidden');
+    devam.classList.add('hidden');
+
+    yemKoy();
+    ciz();
+  }
+
+  function ciz() {
+    if (!yilan) return;
+
+    ctx.fillStyle = '#fff9fa';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.strokeStyle = '#f4e5e9';
+
+    for (let i = 1; i < N; i++) {
+      ctx.beginPath();
+      ctx.moveTo(i * B, 0);
+      ctx.lineTo(i * B, canvas.height);
+      ctx.moveTo(0, i * B);
+      ctx.lineTo(canvas.width, i * B);
+      ctx.stroke();
+    }
+
+    ctx.font = '23px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    ctx.fillText(
+      '❤️',
+      (yem.x + 0.5) * B,
+      (yem.y + 0.5) * B
+    );
+
+    yilan.forEach((p, i) => {
+      const x = p.x * B;
+      const y = p.y * B;
+
+      if (i === 0) {
+        const img = yuzler[skor % 2];
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(x+B/2, y+B/2, B*0.46, 0, Math.PI*2);
+        ctx.clip();
+
+        if (img.complete && img.naturalWidth) {
+          ctx.drawImage(img, x, y, B, B);
+        } else {
+          ctx.fillStyle = '#d98ea4';
+          ctx.fillRect(x, y, B, B);
+        }
+
+        ctx.restore();
+
+        ctx.strokeStyle = '#a9546c';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(x+B/2, y+B/2, B*0.46, 0, Math.PI*2);
+        ctx.stroke();
+
+      } else {
+        ctx.fillStyle = i % 2 ? '#d88da4' : '#edb7c5';
+        ctx.beginPath();
+        ctx.roundRect(x+2, y+2, B-4, B-4, 6);
+        ctx.fill();
+      }
+    });
+  }
+
+  function bitir(mesaj) {
+    clearInterval(zamanlayici);
+    oynuyor = false;
+    durum.textContent = mesaj;
+
+    baslat.classList.remove('hidden');
+    baslat.textContent = 'Tekrar dene ♡';
+  }
+
+  function adim() {
+    yon = gelecekYon;
+
+    const bas = {
+      x:(yilan[0].x + yon.x + N) % N,
+      y:(yilan[0].y + yon.y + N) % N
+    };
+
+    const yedi = bas.x === yem.x && bas.y === yem.y;
+    const govde = yedi ? yilan : yilan.slice(0, -1);
+
+    if (govde.some(p => p.x === bas.x && p.y === bas.y)) {
+      bitir('Minik bir çarpışma! Tekrar dene ❤️');
+      return;
+    }
+
+    yilan.unshift(bas);
+
+    if (!yedi) {
+      yilan.pop();
+    } else {
+      skor++;
+      skorYaz.textContent = skor + ' / 4 kalp toplandı';
+
+      durum.textContent = [
+        'Bir kalp: Gülüşün 🤍',
+        'İki kalp: İyi ki sen ✨',
+        'Üç kalp: İyi ki biz 💗',
+        'Dört kalp: Nice güzel aylarımıza ❤️'
+      ][skor - 1];
+
+      if (skor === 4) {
+        clearInterval(zamanlayici);
+        oynuyor = false;
+
+        baslat.classList.add('hidden');
+        odul.classList.remove('hidden');
+        devam.classList.remove('hidden');
+
+        if (typeof hearts === 'function') {
+          hearts(35);
+        }
+      } else {
+        yemKoy();
+      }
+    }
+
+    ciz();
+  }
+
+  baslat.addEventListener('click', () => {
+    sifirla();
+    oynuyor = true;
+    baslat.classList.add('hidden');
+    durum.textContent = 'Kalpleri yakala! 💗';
+
+    zamanlayici = setInterval(() => {
+      if (bolum.classList.contains('hidden')) {
+        clearInterval(zamanlayici);
+        oynuyor = false;
+        return;
+      }
+      adim();
+    }, 185);
+  });
+
+  function yonDegistir(ad) {
+    const sec = {
+      up:{x:0,y:-1},
+      down:{x:0,y:1},
+      left:{x:-1,y:0},
+      right:{x:1,y:0}
+    }[ad];
+
+    if (sec && !(sec.x === -yon.x && sec.y === -yon.y)) {
+      gelecekYon = sec;
+    }
+  }
+
+  bolum.querySelectorAll('[data-ask-yon]').forEach(b => {
+    b.addEventListener('click', () => {
+      yonDegistir(b.dataset.askYon);
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!oynuyor || bolum.classList.contains('hidden')) {
+      return;
+    }
+
+    const tus = {
+      ArrowUp:'up',
+      ArrowDown:'down',
+      ArrowLeft:'left',
+      ArrowRight:'right'
+    }[e.key];
+
+    if (tus) {
+      e.preventDefault();
+      yonDegistir(tus);
+    }
+  });
+
+  let dokunus = null;
+
+  canvas.addEventListener('touchstart', e => {
+    dokunus = {
+      x:e.touches[0].clientX,
+      y:e.touches[0].clientY
+    };
+  }, {passive:true});
+
+  canvas.addEventListener('touchend', e => {
+    if (!dokunus) return;
+
+    const dx = e.changedTouches[0].clientX - dokunus.x;
+    const dy = e.changedTouches[0].clientY - dokunus.y;
+
+    if (Math.max(Math.abs(dx), Math.abs(dy)) > 15) {
+      yonDegistir(
+        Math.abs(dx) > Math.abs(dy)
+          ? (dx > 0 ? 'right' : 'left')
+          : (dy > 0 ? 'down' : 'up')
+      );
+    }
+
+    dokunus = null;
+  }, {passive:true});
+
+  sifirla();
+})();
+</script>
+<!-- ASK YILANI BITIS -->
+
   </script>
 </body>
 </html>

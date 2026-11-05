@@ -1,236 +1,179 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Senin İçin Bir Bildirim Var ❤️</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fcfaf8">
+  <meta name="description" content="4. ayımız için küçük, kalpten bir sürpriz.">
+  <title>İyi ki Sen, İyi ki Biz ❤️</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(135deg, #fff1f5, #ffe4ec, #fff7fa);
-      min-height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #4a2b35;
-    }
-
-    .container {
-      width: 92%;
-      max-width: 420px;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(10px);
-      border-radius: 24px;
-      padding: 28px 22px;
-      text-align: center;
-      box-shadow: 0 15px 40px rgba(180, 88, 120, 0.18);
-      position: relative;
-      z-index: 2;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      margin: 0 0 12px;
-      font-size: 23px;
-    }
-
-    p {
-      line-height: 1.6;
-      font-size: 16px;
-      margin: 10px 0;
-    }
-
-    .emoji {
-      font-size: 46px;
-      margin-bottom: 10px;
-    }
-
-    button {
-      border: none;
-      border-radius: 999px;
-      padding: 14px 24px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 16px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    button:hover {
-      transform: scale(1.04);
-      box-shadow: 0 10px 20px rgba(255, 105, 135, 0.2);
-    }
-
-    .primary {
-      background: #ff5f8f;
-      color: white;
-    }
-
-    .secondary {
-      background: #fff0f4;
-      color: #d94a78;
-    }
-
-    .message-box {
-      margin-top: 16px;
-      background: #fff7fa;
-      border-radius: 18px;
-      padding: 18px;
-      text-align: left;
-      border: 1px solid #ffd7e4;
-    }
-
-    .signature {
-      margin-top: 14px;
-      font-weight: 600;
-      text-align: right;
-      color: #c13d6c;
-    }
-
-    .heart {
-      position: absolute;
-      bottom: -20px;
-      font-size: 18px;
-      animation: floatUp linear forwards;
-      opacity: 0.85;
-      z-index: 1;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.9;
-      }
-      100% {
-        transform: translateY(-110vh) scale(1.4);
-        opacity: 0;
-      }
-    }
-
-    .tiny {
-      font-size: 13px;
-      color: #9c6a7a;
-      margin-top: 12px;
-    }
-
-    .typewriter {
-      min-height: 110px;
-      white-space: pre-line;
-    }
+    :root { --bg:#fcfaf8; --paper:#fff; --ink:#44343a; --muted:#897b80; --pink:#a9546c; --pinklight:#f9eaf0; --line:#eee5e7; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-height:100vh; background:radial-gradient(ellipse at 8% 0%,#fff0f4 0,transparent 33%),radial-gradient(ellipse at 97% 95%,#fff1eb 0,transparent 38%),var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; }
+    .page { position:relative; z-index:1; display:flex; align-items:center; justify-content:center; min-height:100vh; padding:58px 16px 78px; }
+    .panel { width:min(100%,660px); padding:clamp(26px,6vw,58px); background:rgba(255,255,255,.94); border:1px solid var(--line); box-shadow:0 22px 75px rgba(108,55,72,.075); border-radius:26px; text-align:center; animation:appear .55s ease both; }
+    .hidden { display:none!important; }
+    .eyebrow { color:var(--pink); letter-spacing:.22em; font-size:.72rem; font-weight:700; text-transform:uppercase; }
+    h1,h2 { font-family:Georgia,"Times New Roman",serif; font-weight:400; line-height:1.18; letter-spacing:-.02em; }
+    h1 { font-size:clamp(2.25rem,7vw,4.1rem); margin:17px 0; }
+    h2 { font-size:clamp(2rem,6vw,3rem); margin:12px 0 20px; }
+    .intro { max-width:440px; margin:0 auto 23px; line-height:1.8; color:var(--muted); }
+    .heart-mark { font-size:2.6rem; margin:16px 0 6px; }
+    button { font:inherit; cursor:pointer; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:10px; border:0; border-radius:99px; background:var(--pink); color:white; font-weight:600; padding:15px 28px; min-height:51px; box-shadow:0 8px 20px rgba(169,84,108,.16); transition:transform .2s,box-shadow .2s; }
+    .btn:hover { transform:translateY(-2px); box-shadow:0 12px 26px rgba(169,84,108,.2); }
+    .btn:focus-visible,.music-toggle:focus-visible { outline:3px solid #e8b3c0; outline-offset:4px; }
+    .subtle { font-size:.83rem; color:var(--muted); margin-top:22px; }
+    .envelope { width:235px; height:154px; margin:16px auto 26px; position:relative; display:block; background:#f7e7e8; border:1px solid #e7cdd3; border-radius:8px; box-shadow:0 15px 35px rgba(99,57,67,.08); overflow:hidden; }
+    .envelope:before { content:""; position:absolute; inset:0; background:linear-gradient(146deg,transparent 49.5%,#e4c2ca 50%,transparent 50.5%) left/50% 100% no-repeat, linear-gradient(214deg,transparent 49.5%,#e4c2ca 50%,transparent 50.5%) right/50% 100% no-repeat; }
+    .envelope:after { content:"♥"; position:absolute; top:62px; left:97px; background:#bd7185; color:white; width:42px; height:42px; line-height:42px; border-radius:50%; box-shadow:0 3px 10px #a9546c26; }
+    .letter { text-align:left; margin-top:25px; padding:clamp(19px,4vw,34px); background:#fffcfb; border:1px solid #f0e5e5; border-radius:16px; line-height:1.95; font-size:1rem; }
+    .letter p { margin:0 0 19px; }
+    .letter p:last-child { margin-bottom:0; }
+    .letter strong { color:#945167; font-weight:700; }
+    .photo { width:min(100%,370px); height:auto; max-height:570px; display:block; object-fit:contain; margin:17px auto 21px; border-radius:13px; box-shadow:0 15px 40px #65505725; }
+    .photo-note { font-family:Georgia,"Times New Roman",serif; font-style:italic; line-height:1.6; font-size:1.18rem; color:#775961; }
+    .choices { display:grid; gap:12px; margin:29px auto 10px; max-width:390px; }
+    .choice { padding:16px 18px; background:white; color:var(--ink); border:1px solid #e8d7dc; border-radius:15px; text-align:center; transition:.2s; }
+    .choice:hover { background:var(--pinklight); border-color:#deb7c3; transform:translateY(-2px); }
+    .reveal { margin:22px auto 0; padding:20px; border-radius:15px; background:var(--pinklight); line-height:1.8; }
+    .reveal strong { color:#9b4960; }
+    .final-heart { font-size:4rem; animation:pulse 1.8s infinite; }
+    .final-title { color:#9d5268; }
+    .music-toggle { position:fixed; right:16px; bottom:16px; z-index:9; padding:11px 16px; border-radius:99px; border:1px solid #ead9df; background:rgba(255,255,255,.96); box-shadow:0 6px 22px #704a541a; color:#8a5366; font-size:.83rem; font-weight:600; }
+    .petal { position:fixed; z-index:0; pointer-events:none; animation:floatup linear forwards; opacity:0; color:#df7894; }
+    .foot { color:var(--muted); font-size:.82rem; margin-top:25px; }
+    @keyframes floatup { 0% { transform:translate(0,12vh) rotate(0deg);opacity:0; } 10% { opacity:.85; } 90% { opacity:.65; } 100% { transform:translate(var(--drift),-105vh) rotate(20deg);opacity:0; } }
+    @keyframes appear { from { opacity:0; transform:translateY(12px); } to { opacity:1;transform:translateY(0); } }
+    @keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.12); } }
+    @media (prefers-reduced-motion:reduce) { *,*:before,*:after { animation:none!important;transition:none!important; scroll-behavior:auto!important; } }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div id="screen1">
-      <div class="emoji">📩❤️</div>
-      <h1>Önemli Bildirim</h1>
-      <p>Sevgili kullanıcı, sizin için özel bir mesaj tespit edildi.</p>
-      <p>Mesajın yalnızca çok tatlı biri tarafından açılabildiği belirlendi.</p>
-      <button class="primary" onclick="goToScreen2()">Mesajı Aç</button>
-    </div>
+  <!-- Dosyalar index.html ile aynı klasörde bulunmalıdır. -->
+  <audio id="music" src="muzik.mp3" preload="none" loop></audio>
+  <button id="musicToggle" class="music-toggle" type="button" aria-label="Müziği başlat veya durdur">♫ Müziği aç</button>
+  <main class="page">
+    <section id="intro" class="panel" aria-labelledby="introTitle">
+      <div class="eyebrow">Sadece ikimize özel</div>
+      <div class="heart-mark" aria-hidden="true">♡</div>
+      <h1 id="introTitle">4. Ayımız Kutlu Olsun</h1>
+      <p class="intro">Balımm avradımm, senin için küçücük bir sürpriz hazırladım. Hazırsan birlikte açalım. 🤍</p>
+      <button class="btn" type="button" data-next="envelope">Sürprizi aç ✨</button>
+      <p class="subtle">Küçük not: Müziği istediğin zaman sağ alttan açıp kapatabilirsin.</p>
+    </section>
 
-    <div id="screen2" class="hidden">
-      <div class="emoji">💘</div>
-      <h2>Sistem Kontrol Ediliyor...</h2>
-      <p>Kalp verileri inceleniyor.</p>
-      <p><strong>Sonuç:</strong> Aşırı derecede sevimli birine ulaşıldı. 😌</p>
-      <button class="primary" onclick="goToScreen3()">Sonucu Göster</button>
-    </div>
+    <section id="envelope" class="panel hidden" aria-labelledby="envelopeTitle">
+      <div class="eyebrow">Birinci sürpriz</div>
+      <span class="envelope" aria-hidden="true"></span>
+      <h2 id="envelopeTitle">Sana söylemek istediğim bir şey var...</h2>
+      <p class="intro">Bu dört ayın içine sığdırdığım birkaç kelime.</p>
+      <button class="btn" type="button" data-next="letter">Mektubunu aç 💌</button>
+    </section>
 
-    <div id="screen3" class="hidden">
-      <div class="emoji">🥹❤️</div>
-      <h2>Sonuç Hazır</h2>
-      <div class="message-box">
-        <p id="typedMessage" class="typewriter"></p>
-        <div class="signature">— Senin delice seven sevgilin 💌</div>
+    <section id="letter" class="panel hidden" aria-labelledby="letterTitle">
+      <div class="eyebrow">Kalbimden sana</div>
+      <h2 id="letterTitle">İyi ki sen, iyi ki biz. ❤️</h2>
+      <div class="letter">
+          <p>Balımm avradımm,</p>
+          <p>Bugün bizim 4. ayımız.</p>
+          <p>Dışarıdan bakınca sadece dört ay gibi görünebilir ama benim için bu dört ayın içine o kadar güzel duygular sığdı ki...</p>
+          <p>Bazen düşünüyorum, insan birinin hayatına nasıl bu kadar güzel dokunabilir diye. Sonra senin gülüşün geliyor aklıma ve cevabımı buluyorum.</p>
+          <p>Senin tarafından kabul görmek, yanında kendim gibi olabilmek, en saçma hâllerimle bile seni güldürebilmek benim için tarif edemeyeceğim kadar değerli.</p>
+          <p>Çünkü ben sadece seni sevmeyi değil, senin yanında olduğum insanı da çok sevdim.</p>
+          <p>Biliyor musun, bazen tek istediğim şey gününün herhangi bir anında yüzünü güldürebilmek. Belki saçma bir şakayla, belki beklemediğin bir mesajla, belki de şu an okuduğun bu küçük sürprizle...</p>
+          <p>Hayatında büyük şeyler başarmaktan önce, senin hayatındaki küçük mutlulukların bir parçası olabilmek istiyorum.</p>
+          <p>Birlikte güleceğimiz daha çok şey, anlatacağımız daha çok hikâye, yaşayacağımız daha çok güzel an olsun istiyorum.</p>
+          <p>Dört ay önce başlayan bu hikâyenin bugün geldiği yere baktığımda içimden sadece bir şey geçiyor:</p>
+          <p><strong>İyi ki yollarımız kesişmiş. İyi ki hayatımdasın. İyi ki senin sevgilinim.</strong></p>
+          <p>4. ayımız kutlu olsun sevgilim.</p>
+          <p><strong>Senin gülüşünü sevmek, hayatımın en güzel alışkanlığı oldu.</strong></p>
       </div>
-      <button class="secondary" onclick="showFinalNote()">Ben de Gülümsedim 😊</button>
-      <p id="finalNote" class="tiny hidden">Tamamdır... artık resmi olarak seni biraz daha çok özlüyorum. 💞</p>
-    </div>
-  </div>
+      <p class="foot">Buraya kadar okuduysan, sırada bir anımız var. 🤍</p>
+      <button class="btn" type="button" data-next="photo">Devam et 🤍</button>
+    </section>
+
+    <section id="photo" class="panel hidden" aria-labelledby="photoTitle">
+      <div class="eyebrow">İkinci sürpriz</div>
+      <h2 id="photoTitle">Bir fotoğraf, bin tane iyi ki...</h2>
+      <img class="photo" src="fotograf.jpg" alt="Birlikte seçtiğimiz çocukluk ve günümüz fotoğraflarından oluşan anı kolajı">
+      <p class="photo-note">Bazı hikâyeler sanki en başından beri yazılıymış... 🤍</p>
+      <button class="btn" type="button" data-next="quiz">Bir sürpriz daha var ✨</button>
+    </section>
+
+    <section id="quiz" class="panel hidden" aria-labelledby="quizTitle">
+      <div class="eyebrow">Üçüncü sürpriz</div>
+      <h2 id="quizTitle">Minicik bir aşk testi 🥰</h2>
+      <p class="intro">Sence seni ne kadar seviyorum?</p>
+      <div class="choices" id="choices">
+        <button class="choice" type="button">Çok ❤️</button>
+        <button class="choice" type="button">Tahmin edemeyeceğin kadar 💘</button>
+        <button class="choice" type="button">Her geçen gün daha fazla 🤍</button>
+      </div>
+      <div id="quizAnswer" class="reveal hidden" role="status">
+        <strong>Doğru cevap: Hepsi! ❤️</strong><br>
+        Çünkü seni tek bir seçeneğe sığdırmak imkânsız. Hem de bu testte yanlış cevap yok. 😌
+      </div>
+      <button id="finalButton" class="btn hidden" type="button" data-next="final">Son bir sürpriz kaldı 💗</button>
+    </section>
+
+    <section id="final" class="panel hidden" aria-labelledby="finalTitle">
+      <div class="eyebrow">Ve son olarak...</div>
+      <div class="final-heart" aria-hidden="true">❤️</div>
+      <h1 id="finalTitle" class="final-title">4. ayımız kutlu olsun balımm avradımm!</h1>
+      <p class="intro">İyi ki varsın. İyi ki hayatımdasın. Daha birlikte güleceğimiz, sarılacağımız ve hatırlayacağımız nice güzel günlere... 🤍</p>
+      <p class="photo-note">Sen hep böyle gül, ben de o gülüşün bir sebebi olmaya çalışayım.</p>
+      <button class="btn" type="button" data-next="intro">Başa dön ↺</button>
+      <p class="foot">Sevgiyle hazırlanmıştır. ♡</p>
+    </section>
+  </main>
 
   <script>
-    const message = `Merhaba aşkım,
-
-Bu küçük site sana şunu söylemek için hazırlandı:
-
-Günün nasıl geçmiş olursa olsun,
-telefonuna gelen bu minicik şeyin
-yüzünde küçücük de olsa bir gülümseme bırakmasını istedim.
-
-Çünkü sen gülünce,
-benim de içim güzelleşiyor. ❤️
-
-Kısacası...
-sana sadece şunu demeye geldim:
-
-Seni çok seviyorum.`;
-
-    function goToScreen2() {
-      document.getElementById("screen1").classList.add("hidden");
-      document.getElementById("screen2").classList.remove("hidden");
-      startHearts();
+    const sections = [...document.querySelectorAll('main section')];
+    const music = document.getElementById('music');
+    const musicToggle = document.getElementById('musicToggle');
+    let triedAutoplay = false;
+    function updateMusicButton() { musicToggle.textContent = music.paused ? '♫ Müziği aç' : '❚❚ Müziği durdur'; }
+    async function startMusic() {
+      try { music.volume = 0.42; await music.play(); }
+      catch (err) { console.info('Tarayıcı müziği başlatamadı veya dosya bulunamadı:', err); }
+      updateMusicButton();
     }
-
-    function goToScreen3() {
-      document.getElementById("screen2").classList.add("hidden");
-      document.getElementById("screen3").classList.remove("hidden");
-      typeMessage();
-    }
-
-    function showFinalNote() {
-      document.getElementById("finalNote").classList.remove("hidden");
-    }
-
-    function typeMessage() {
-      const target = document.getElementById("typedMessage");
-      target.textContent = "";
-      let i = 0;
-
-      function write() {
-        if (i < message.length) {
-          target.textContent += message.charAt(i);
-          i++;
-          setTimeout(write, 32);
-        }
+    musicToggle.addEventListener('click', () => { if (music.paused) startMusic(); else { music.pause(); updateMusicButton(); } });
+    music.addEventListener('play', updateMusicButton);
+    music.addEventListener('pause', updateMusicButton);
+    music.addEventListener('error', () => { musicToggle.textContent='♫ Müzik dosyası bulunamadı'; });
+    function hearts(count=24) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const symbols=['♡','♥','💗','✦'];
+      for (let i=0;i<count;i++) {
+        const heart=document.createElement('span'); heart.className='petal'; heart.setAttribute('aria-hidden','true');
+        heart.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+        heart.style.left=(Math.random()*100)+'vw';
+        heart.style.bottom='-50px';
+        heart.style.fontSize=(12+Math.random()*20)+'px';
+        heart.style.animationDuration=(4+Math.random()*4)+'s';
+        heart.style.animationDelay=(Math.random()*1.8)+'s';
+        heart.style.setProperty('--drift',(Math.random()*130-65)+'px');
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),10000);
       }
-
-      write();
     }
-
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.textContent = ["❤️", "💖", "💗", "💘", "💕"][Math.floor(Math.random() * 5)];
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (16 + Math.random() * 20) + "px";
-      heart.style.animationDuration = (4 + Math.random() * 4) + "s";
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 8000);
+    function show(id) {
+      sections.forEach(section=>section.classList.toggle('hidden',section.id!==id));
+      window.scrollTo({top:0,behavior:'instant'});
+      document.querySelector('#'+id+' h1, #'+id+' h2')?.setAttribute('tabindex','-1');
+      document.querySelector('#'+id+' h1, #'+id+' h2')?.focus({preventScroll:true});
+      hearts(id==='final'?65:14);
+      if (!triedAutoplay) { triedAutoplay=true; startMusic(); }
     }
-
-    let heartsStarted = false;
-    function startHearts() {
-      if (heartsStarted) return;
-      heartsStarted = true;
-      setInterval(createHeart, 350);
-    }
+    document.querySelectorAll('[data-next]').forEach(button => button.addEventListener('click',()=>show(button.dataset.next)));
+    document.querySelectorAll('.choice').forEach(button=>button.addEventListener('click',()=>{
+      document.getElementById('quizAnswer').classList.remove('hidden');
+      document.getElementById('finalButton').classList.remove('hidden');
+      hearts(28);
+    }));
   </script>
 </body>
 </html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Senin İçin Bir Bildirim Var ❤️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #fff1f5, #ffe4ec, #fff7fa);
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4a2b35;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(180, 88, 120, 0.18);
+      position: relative;
+      z-index: 2;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 23px;
+    }
+
+    p {
+      line-height: 1.6;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+
+    .emoji {
+      font-size: 46px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 14px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.04);
+      box-shadow: 0 10px 20px rgba(255, 105, 135, 0.2);
+    }
+
+    .primary {
+      background: #ff5f8f;
+      color: white;
+    }
+
+    .secondary {
+      background: #fff0f4;
+      color: #d94a78;
+    }
+
+    .message-box {
+      margin-top: 16px;
+      background: #fff7fa;
+      border-radius: 18px;
+      padding: 18px;
+      text-align: left;
+      border: 1px solid #ffd7e4;
+    }
+
+    .signature {
+      margin-top: 14px;
+      font-weight: 600;
+      text-align: right;
+      color: #c13d6c;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 18px;
+      animation: floatUp linear forwards;
+      opacity: 0.85;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    .tiny {
+      font-size: 13px;
+      color: #9c6a7a;
+      margin-top: 12px;
+    }
+
+    .typewriter {
+      min-height: 110px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="screen1">
+      <div class="emoji">📩❤️</div>
+      <h1>Önemli Bildirim</h1>
+      <p>Sevgili kullanıcı, sizin için özel bir mesaj tespit edildi.</p>
+      <p>Mesajın yalnızca çok tatlı biri tarafından açılabildiği belirlendi.</p>
+      <button class="primary" onclick="goToScreen2()">Mesajı Aç</button>
+    </div>
+
+    <div id="screen2" class="hidden">
+      <div class="emoji">💘</div>
+      <h2>Sistem Kontrol Ediliyor...</h2>
+      <p>Kalp verileri inceleniyor.</p>
+      <p><strong>Sonuç:</strong> Aşırı derecede sevimli birine ulaşıldı. 😌</p>
+      <button class="primary" onclick="goToScreen3()">Sonucu Göster</button>
+    </div>
+
+    <div id="screen3" class="hidden">
+      <div class="emoji">🥹❤️</div>
+      <h2>Sonuç Hazır</h2>
+      <div class="message-box">
+        <p id="typedMessage" class="typewriter"></p>
+        <div class="signature">— Senin delice seven sevgilin 💌</div>
+      </div>
+      <button class="secondary" onclick="showFinalNote()">Ben de Gülümsedim 😊</button>
+      <p id="finalNote" class="tiny hidden">Tamamdır... artık resmi olarak seni biraz daha çok özlüyorum. 💞</p>
+    </div>
+  </div>
+
+  <script>
+    const message = `Merhaba aşkım,
+
+Bu küçük site sana şunu söylemek için hazırlandı:
+
+Günün nasıl geçmiş olursa olsun,
+telefonuna gelen bu minicik şeyin
+yüzünde küçücük de olsa bir gülümseme bırakmasını istedim.
+
+Çünkü sen gülünce,
+benim de içim güzelleşiyor. ❤️
+
+Kısacası...
+sana sadece şunu demeye geldim:
+
+Seni çok seviyorum.`;
+
+    function goToScreen2() {
+      document.getElementById("screen1").classList.add("hidden");
+      document.getElementById("screen2").classList.remove("hidden");
+      startHearts();
+    }
+
+    function goToScreen3() {
+      document.getElementById("screen2").classList.add("hidden");
+      document.getElementById("screen3").classList.remove("hidden");
+      typeMessage();
+    }
+
+    function showFinalNote() {
+      document.getElementById("finalNote").classList.remove("hidden");
+    }
+
+    function typeMessage() {
+      const target = document.getElementById("typedMessage");
+      target.textContent = "";
+      let i = 0;
+
+      function write() {
+        if (i < message.length) {
+          target.textContent += message.charAt(i);
+          i++;
+          setTimeout(write, 32);
+        }
+      }
+
+      write();
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = ["❤️", "💖", "💗", "💘", "💕"][Math.floor(Math.random() * 5)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (16 + Math.random() * 20) + "px";
+      heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 8000);
+    }
+
+    let heartsStarted = false;
+    function startHearts() {
+      if (heartsStarted) return;
+      heartsStarted = true;
+      setInterval(createHeart, 350);
+    }
+  </script>
+</body>
+</html>

@@ -174,7 +174,7 @@
       document.getElementById('finalButton').classList.remove('hidden');
       hearts(28);
     }));
- 
+ </script>
 <!-- YUZLERIMIZLE ASK YILANI -->
 <style>
   .ask-yilan-kutu {
@@ -265,7 +265,7 @@
   }
 
   bolum.innerHTML = yeniIcerik;
-
+  sections.push(bolum);
   const fotoButonu =
     document.querySelector('#photo [data-next]');
 
@@ -290,6 +290,7 @@
   const durum = document.getElementById('askYilanDurum');
   const baslat = document.getElementById('askYilanBaslat');
   const devam = document.getElementById('askYilanDevam');
+  devam.addEventListener('click', () => show('quiz'));
   const odul = document.getElementById('askYilanOdul');
 
   let yilan, yem, yon, gelecekYon, skor;
@@ -542,7 +543,5 @@
 })();
 </script>
 <!-- ASK YILANI BITIS -->
-
-  </script>
 </body>
 </html>
